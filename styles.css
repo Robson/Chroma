@@ -38,8 +38,14 @@ body {
 	font-family: 'Roboto Slab', sans-serif;
 }
 
+#progress {
+	background: black;
+	color: white;
+	padding-top: 40px;
+}
+
 #question {    
-	padding: 45px 20px 50px 20px;
+	padding: 0 20px 50px 20px;
 	font-size: 32px;
 	background: black;
 	color: white;
@@ -159,13 +165,14 @@ a:hover {
 }
 
 #result {
-	padding: 5px 0 10px;
+	padding: 5px 0 15px;
 	margin: 0 auto;
 	width: auto;
 	max-width: 90%;
 	display: inline-block;
 	text-align: center;
 	display: none;
+	border: 5px solid black;
 }
 
 #result p {
@@ -229,4 +236,8 @@ a:hover {
 		margin: 0 2px;
 	}
 	
+	#copyResultsAsImage {
+		display: none !important;
+		opacity: 0;
+	}	
 }

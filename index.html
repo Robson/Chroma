@@ -30,14 +30,11 @@
         <div id="about">
             <a href="https://github.com/Robson/Chroma">Code</a> by <a href="https://robson.plus">Robson</a>
         </div>
-
-        <div id="score">
-
-        </div>
         <div id="set">
             <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 Colour Set</a>
         </div>
     </div>
+    <div id="progress">&#9671;&#9671;&#9671;&#9671;&#9671;</div>
     <div id="question"></div>
     <div id="answers"></div>
     <div id="result"><div id="extra"></div></div>
@@ -53,7 +50,9 @@
 
 		var d = new Date();
 		var str = d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay();
-		//str = '2024-10-14';
+		str = '2024-10-14';
+		//str = '-' + Math.random() * 10;
+		//console.log(str);
 		var seed = cyrb128(str);
 		var rand = splitmix32(seed[0]);
 
@@ -222,7 +221,7 @@
         }
 
         const levels = 5;
-        const MinimumHueDifference = 20;
+        const MinimumHueDifference = 25;
         const MinimumRgbDifference = 50;
 
         var correctIndex;
@@ -255,9 +254,9 @@
 		}
 
         function copyResultsAsImage() {
-        	var extra = d3.select('#result #extra');
-        	extra.style('display', 'block');
-        	sleep(100);
+        	//var extra = d3.select('#result #extra');
+        	//extra.style('display', 'block');
+        	//sleep(100);
 			html2canvas(document.getElementById('result')).then(canvas => {
 				// Convert the canvas to Blob
 				canvas.toBlob(function(blob) {
@@ -271,15 +270,16 @@
 					});
 				});
 			});
-			sleep(100);
-			extra.style('display', 'none');
+			//sleep(100);
+			//extra.style('display', 'none');
         }
 
         function showResults() {
-            d3.select('#question').html("Finished!");
             d3.select('#answers').style('display', 'none');
             d3.select('#finish').style('display', 'none');
-            d3.select('#score').style('display', 'none');
+            //d3.select('#score').style('display', 'none');
+            d3.select('#progress').style('display', 'none');
+            d3.select('#question').style('display', 'none');
             d3.select('#share').style('display', 'block');
             d3.select('#result').style('display', 'inline-block');
             d3.selectAll('#share *').style('display', 'inline-block');
@@ -290,11 +290,11 @@
             } else if (amountCorrect == levels - 1) {
                 exclamation = '. Excellent!';
             }
-            d3.select('#question').style('padding', '20px 10px 25px 10px')
-            d3.select('#question').html(amountCorrect + ' correct out of ' + levels + exclamation)
+            //d3.select('#question').style('padding', '20px 10px 25px 10px')
+            //d3.select('#question').html(amountCorrect + ' correct out of ' + levels + exclamation)
             var resultBox = d3.select('#result');
             var extraBox = d3.select('#extra');
-            //extraBox.style('display', 'none');
+            extraBox.style('display', 'block');
 			var d = new Date();
             extraBox
             	.append('div')
@@ -343,11 +343,6 @@
                 }
             }
             score.html(html);
-            if (tracker.length == levels) {
-                d3.select('#finish').style('display', 'inline-block');
-            } else {
-                d3.select('#next').style('display', 'inline-block');
-            }
         }
 
         function clickAnswer(index) {
@@ -368,10 +363,12 @@
                 }
             }
             tracker.push(log);
-            showScore();
+            if (tracker.length == levels) {
+                d3.select('#finish').style('display', 'inline-block');
+            } else {
+                d3.select('#next').style('display', 'inline-block');
+            }
         }
-
-        showScore();
 
         function showNewLevel() {
 
@@ -380,8 +377,25 @@
             var shuffled = colours.slice(0);
             shuffleArray(shuffled);
 
+			// reroll if we have already had this colour.
+			// this ensures that at least one colour is new
+			// and therefore there is always a valid answer
+            var isValid = true;
+            do {
+            	isValid = true;
+            	for (var old of tracker) {
+            		if (old.items[old.correctIndex][0] == shuffled[0][0]) {
+            			isValid = false;
+            		}
+            	}
+            	if (!isValid) {
+            		shuffleArray(shuffled);
+            	}
+            } while (!isValid);
+
             var amount = 6;
-            answers = [];
+            // start the answer array with the item that we ensured is a valid answer.
+            // the array will get shuffled later
             answers = [shuffled[0]];
 
             for (var a = 1; a < shuffled.length; a++) {
@@ -406,7 +420,22 @@
                 }
             }
 
-            correctIndex = ~~(rand() * amount);
+            shuffleArray(answers);
+
+			console.log('=====');
+            var isValid = true;
+            do {
+            	console.log('----');
+				correctIndex = ~~(rand() * amount);
+            	isValid = true;
+            	for (var old of tracker) {
+            		console.log(old.items[old.correctIndex][0] + ' vs ' + answers[correctIndex][0]);
+            		if (old.items[old.correctIndex][0] == answers[correctIndex][0]) {
+            			isValid = false;
+            			console.log('failed!');
+            		}
+            	}
+            } while (!isValid);
 
             d3.select('#question').html('Which circle is <span class="highlight">' + answers[correctIndex][0] + '?</span>');
 
@@ -435,6 +464,19 @@
 						.attr('class', 'mobileBreaker');
 				}
             }
+
+            var progress = d3.select('#progress');
+            var html = '';
+            for (var a = 0; a < levels; a++) {
+            	if (tracker.length == a) {
+            		html += '&#10192;';
+            	} else if (tracker.length > a) {
+            		html += '&#9670;';
+            	} else {
+            		html += '&#9671;';
+            	}
+            }
+            progress.html(html);
 
         }
 
