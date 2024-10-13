@@ -1,26 +1,27 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2E561F2422"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-2E561F2422');
-	</script>
-	<!--
-	************************************************
-	The script above is for google analytics.
-	You'll want to remove that if you use this page.
-	************************************************
-	-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2E561F2422"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-2E561F2422');
+    </script>
+    <!--
+    ************************************************
+    The script above is for google analytics.
+    You'll want to remove that if you use this page.
+    ************************************************
+    -->
     <title>Chroma</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="styles.css" />
     <script type="text/javascript" src="rng.js"></script>
+    <script type="text/javascript" src="colours.js"></script>
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -31,7 +32,7 @@
             <a href="https://github.com/Robson/Chroma">Code</a> by <a href="https://robson.plus">Robson</a>
         </div>
         <div id="set">
-            <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 Colour Set</a>
+            Colours: <a href="https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0">Dulux Popular</a>
         </div>
     </div>
     <div id="progress">&#9671;&#9671;&#9671;&#9671;&#9671;</div>
@@ -49,161 +50,49 @@
     <script type="text/javascript">
 
 		var d = new Date();
-		var str = d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay();
-		//str = '2024-10-14';
+		var str = '0' + d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay();
+		//str = '02024-10-15';
 		//str = '-' + Math.random() * 10;
-		//console.log(str);
 		var seed = cyrb128(str);
-		var rand = splitmix32(seed[0]);
+        var rand = splitmix32(seed[0]);
 
-        // obvious/boring colours are commented out
-        var colours = [
-            ['Alice Blue', 'F0F8FF', 208],
-            ['Antique White', 'FAEBD7', 34],
-            ['Aqua', '00FFFF', 180],
-            ['Aquamarine', '7FFFD4', 160],
-            ['Azure', 'F0FFFF', 180],
-            ['Beige', 'F5F5DC', 60],
-            ['Bisque', 'FFE4C4', 33],
-            //['Black', '000000', 0],
-            ['Blanched Almond', 'FFEBCD', 36],
-            //['Blue', '0000FF', 240],
-            ['Blue Violet', '8A2BE2', 271],
-            //['Brown', 'A52A2A', 0],
-            ['Burlywood', 'DEB887', 34],
-            ['Cadet Blue', '5F9EA0', 182],
-            ['Chartreuse', '7FFF00', 90],
-            ['Chocolate', 'D2691E', 25],
-            ['Coral', 'FF7F50', 16],
-            ['Cornflower Blue', '6495ED', 219],
-            ['Cornsilk', 'FFF8DC', 48],
-            ['Crimson', 'DC143C', 348],
-            ['Cyan', '00FFFF', 180],
-            //['Dark Blue', '00008B', 240],
-            ['Dark Cyan', '008B8B', 180],
-            ['Dark Goldenrod', 'B8860B', 43],
-            //['Dark Gray', 'A9A9A9', 0],
-            //['Dark Green', '006400', 120],
-            ['Dark Khaki', 'BDB76B', 56],
-            ['Dark Magenta', '8B008B', 300],
-            ['Dark Olive Green', '556B2F', 82],
-            //['Dark Orange', 'FF8C00', 33],
-            ['Dark Orchid', '9932CC', 280],
-            //['Dark Red', '8B0000', 0],
-            ['Dark Salmon', 'E9967A', 15],
-            ['Dark Sea Green', '8FBC8F', 120],
-            ['Dark Slate Blue', '483D8B', 248],
-            ['Dark Slate Gray', '2F4F4F', 180],
-            ['Dark Turquoise', '00CED1', 181],
-            ['Dark Violet', '9400D3', 282],
-            //['Deep Pink', 'FF1493', 328],
-            ['Deep Sky Blue', '00BFFF', 195],
-            ['Dim Gray', '696969', 0],
-            ['Dodger Blue', '1E90FF', 210],
-            ['Firebrick', 'B22222', 0],
-            ['Floral White', 'FFFAF0', 40],
-            ['Forest Green', '228B22', 120],
-            ['Fuchsia', 'FF00FF', 300],
-            //['Gainsboro', 'DCDCDC', 0],
-            ['Ghost White', 'F8F8FF', 240],
-            //['Gold', 'FFD700', 51],
-            ['Goldenrod', 'DAA520', 43],
-            //['Gray', 'BEBEBE', 0],
-            //['Web Gray', '808080', 0],
-            //['Green', '00FF00', 120],
-            //['Web Green', '008000', 120],
-            ['Green Yellow', 'ADFF2F', 84],
-            ['Honeydew', 'F0FFF0', 120],
-            ['Hot Pink', 'FF69B4', 330],
-            ['Indian Red', 'CD5C5C', 0],
-            ['Indigo', '4B0082', 275],
-            ['Ivory', 'FFFFF0', 60],
-            ['Khaki', 'F0E68C', 54],
-            ['Lavender', 'E6E6FA', 240],
-            ['Lavender Blush', 'FFF0F5', 340],
-            ['Lawn Green', '7CFC00', 90],
-            ['Lemon Chiffon', 'FFFACD', 54],
-            //['Light Blue', 'ADD8E6', 195],
-            ['Light Coral', 'F08080', 0],
-            ['Light Cyan', 'E0FFFF', 180],
-            ['Light Goldenrod', 'FAFAD2', 60],
-            //['Light Gray', 'D3D3D3', 0],
-            //['Light Green', '90EE90', 120],
-            //['Light Pink', 'FFB6C1', 351],
-            ['Light Salmon', 'FFA07A', 17],
-            ['Light Sea Green', '20B2AA', 177],
-            ['Light Sky Blue', '87CEFA', 203],
-            ['Light Slate Gray', '778899', 210],
-            ['Light Steel Blue', 'B0C4DE', 214],
-            //['Light Yellow', 'FFFFE0', 60],
-            ['Lime', '00FF00', 120],
-            ['Lime Green', '32CD32', 120],
-            ['Linen', 'FAF0E6', 30],
-            ['Magenta', 'FF00FF', 300],
-            ['Maroon', 'B03060', 338],
-            //['Web Maroon', '800000', 0],
-            ['Medium Aquamarine', '66CDAA', 160],
-            //['Medium Blue', '0000CD', 240],
-            ['Medium Orchid', 'BA55D3', 288],
-            //['Medium Purple', '9370DB', 260],
-            ['Medium Sea Green', '3CB371', 147],
-            ['Medium Slate Blue', '7B68EE', 249],
-            ['Medium Spring Green', '00FA9A', 157],
-            ['Medium Turquoise', '48D1CC', 178],
-            ['Medium Violet Red', 'C71585', 322],
-            ['Midnight Blue', '191970', 240],
-            ['Mint Cream', 'F5FFFA', 150],
-            ['Misty Rose', 'FFE4E1', 6],
-            ['Moccasin', 'FFE4B5', 38],
-            ['Navajo White', 'FFDEAD', 36],
-            ['Navy Blue', '000080', 240],
-            ['Old Lace', 'FDF5E6', 39],
-            ['Olive', '808000', 60],
-            ['Olive Drab', '6B8E23', 80],
-            //['Orange', 'FFA500', 39],
-            ['Orange Red', 'FF4500', 16],
-            ['Orchid', 'DA70D6', 302],
-            ['Pale Goldenrod', 'EEE8AA', 55],
-            ['Pale Green', '98FB98', 120],
-            ['Pale Turquoise', 'AFEEEE', 180],
-            ['Pale Violet Red', 'DB7093', 340],
-            ['Papaya Whip', 'FFEFD5', 37],
-            ['Peach Puff', 'FFDAB9', 28],
-            //['Peru', 'CD853F', 30],
-            //['Pink', 'FFC0CB', 350],
-            ['Plum', 'DDA0DD', 300],
-            ['Powder Blue', 'B0E0E6', 187],
-            //['Purple', 'A020F0', 277],
-            //['Web Purple', '800080', 300],
-            ['Rebecca Purple', '663399', 270],
-            //['Red', 'FF0000', 0],
-            ['Rosy Brown', 'BC8F8F', 0],
-            ['Royal Blue', '4169E1', 225],
-            ['Saddle brown', '8B4513', 25],
-            ['Salmon', 'FA8072', 6],
-            ['Sandy Brown', 'F4A460', 28],
-            ['Sea Green', '2E8B57', 146],
-            ['Seashell', 'FFF5EE', 25],
-            ['Sienna', 'A0522D', 19],
-            ['Silver', 'C0C0C0', 0],
-            ['Sky Blue', '87CEEB', 197],
-            ['Slate Blue', '6A5ACD', 248],
-            ['Slate Gray', '708090', 210],
-            ['Snow', 'FFFAFA', 0],
-            ['Spring Green', '00FF7F', 150],
-            ['Steel Blue', '4682B4', 207],
-            ['Tan', 'D2B48C', 34],
-            ['Teal', '008080', 180],
-            ['Thistle', 'D8BFD8', 300],
-            ['Tomato', 'FF6347', 9],
-            ['Turquoise', '40E0D0', 174],
-            ['Violet', 'EE82EE', 300],
-            ['Wheat', 'F5DEB3', 39],
-            //['White', 'FFFFFF', 0],
-            ['White Smoke', 'F5F5F5', 0],
-            //['Yellow', 'FFFF00', 60],
-            ['Yellow Green', '9ACD32', 80],
-        ];
+        function rgbToHue(rgb) {
+            // Extract the red, green, and blue components from the RGB code
+            var r = parseInt(rgb.substring(0, 2), 16) / 255;
+            var g = parseInt(rgb.substring(2, 4), 16) / 255;
+            var b = parseInt(rgb.substring(4, 6), 16) / 255;
+
+            // Find the maximum and minimum values among the RGB components
+            var max = Math.max(r, g, b);
+            var min = Math.min(r, g, b);
+
+            // Calculate the hue
+            var hue;
+            if (max === min) {
+                hue = 0; // Achromatic case
+            } else {
+                var delta = max - min;
+                switch (max) {
+                    case r:
+                        hue = ((g - b) / delta + (g < b ? 6 : 0)) * 60;
+                        break;
+                    case g:
+                        hue = ((b - r) / delta + 2) * 60;
+                        break;
+                    case b:
+                        hue = ((r - g) / delta + 4) * 60;
+                        break;
+                }
+            }
+
+            return Math.round(hue);
+        }
+
+        for (var a = 0; a < colours.length; a++) {
+            if (colours[a][2] < 0) {
+                colours[a][2] = rgbToHue(colours[a][1]);
+            }
+        }
 
         function shuffleArray(arr) {
             for (let i = arr.length - 1; i >= 0; i--) {
@@ -222,7 +111,8 @@
 
         const levels = 5;
         const MinimumHueDifference = 25;
-        const MinimumRgbDifference = 50;
+        const MinimumRgbDifference = 100;
+        const MinimumDeltaDifference = 30;
 
         var correctIndex;
         var answers = [];
@@ -248,19 +138,9 @@
 			alert("Result copied to the clipboard!");
         }
 
-		function sleep(miliseconds) {
-		   var currentTime = new Date().getTime();
-		   while (currentTime + miliseconds >= new Date().getTime()) {}
-		}
-
         function copyResultsAsImage() {
-        	//var extra = d3.select('#result #extra');
-        	//extra.style('display', 'block');
-        	//sleep(100);
 			html2canvas(document.getElementById('result')).then(canvas => {
-				// Convert the canvas to Blob
 				canvas.toBlob(function(blob) {
-					// Use the Clipboard API to copy the Blob
 					navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
 					.then(() => {
 						alert("Result copied to the clipboard!");
@@ -270,8 +150,6 @@
 					});
 				});
 			});
-			//sleep(100);
-			//extra.style('display', 'none');
         }
 
         function showResults() {
@@ -401,16 +279,34 @@
             for (var a = 1; a < shuffled.length; a++) {
                 var isValid = true;
                 for (var b = 0; b < answers.length; b++) {
-                    if (Math.abs(shuffled[a][2] - answers[b][2]) < MinimumHueDifference) {
-                        isValid = false;
-                    }
                     var rgbExisting = hexToRgb(answers[b][1]);
                     var rgbCandidate = hexToRgb(shuffled[a][1]);
-                    if (Math.abs(rgbExisting.r - rgbCandidate.r) +
-                        Math.abs(rgbExisting.g - rgbCandidate.g) +
-                        Math.abs(rgbExisting.b - rgbCandidate.b) < MinimumRgbDifference) {
+                    var deltaDiff = deltaE([rgbExisting.r, rgbExisting.g, rgbExisting.b], [rgbCandidate.r, rgbCandidate.g, rgbCandidate.b]);
+                    if (deltaDiff <= MinimumDeltaDifference) {
                         isValid = false;
                     }
+
+                    // check if from the same set
+                    
+                    if (shuffled[a][3] > 0 && shuffled[a][3] == answers[b][3]) {
+                        isValid = false;
+                    }
+                    /*
+                    if (isValid) {
+                        if (Math.abs(shuffled[a][2] - answers[b][2]) < MinimumHueDifference) {
+                            isValid = false;
+                        }
+                    }
+                    */
+                   /*
+                    if (isValid) {
+                        if (Math.abs(rgbExisting.r - rgbCandidate.r) +
+                            Math.abs(rgbExisting.g - rgbCandidate.g) +
+                            Math.abs(rgbExisting.b - rgbCandidate.b) < MinimumRgbDifference) {
+                            isValid = false;
+                        }
+                    }
+                    */                    
                 }
                 if (isValid) {
                     answers.push(shuffled[a]);
@@ -420,19 +316,21 @@
                 }
             }
 
+            if (answers.length < amount) {
+                console.log('reroll!');
+                showNewLevel();
+                return;
+            }
+
             shuffleArray(answers);
 
-			console.log('=====');
             var isValid = true;
             do {
-            	console.log('----');
-				correctIndex = ~~(rand() * amount);
+				correctIndex = ~~(rand() * answers.length);
             	isValid = true;
             	for (var old of tracker) {
-            		console.log(old.items[old.correctIndex][0] + ' vs ' + answers[correctIndex][0]);
             		if (old.items[old.correctIndex][0] == answers[correctIndex][0]) {
             			isValid = false;
-            			console.log('failed!');
             		}
             	}
             } while (!isValid);
@@ -458,7 +356,7 @@
                     .html('&nbsp;')
                     .on('mousedown', function () { clickAnswer(d3.select(this).attr('data-index')) });
 
-				if (index == 2) {
+				if (index % 3 == 2) {
 					d3.select('#answers')
 						.append('div')
 						.attr('class', 'mobileBreaker');
