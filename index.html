@@ -40,6 +40,7 @@
     <div id="answers"></div>
     <div id="result"><div id="extra"></div></div>
     <div id="share">
+    	<div id="copyResultsMobile" onclick="copyResultsAsText()">Copy Results</div>
     	<div id="copyResultsAsText" onclick="copyResultsAsText()">Copy Results as Text</div>
     	<br/>
     	<div id="copyResultsAsImage" onclick="copyResultsAsImage()">Copy Results as Image</div>
@@ -160,7 +161,6 @@
             d3.select('#question').style('display', 'none');
             d3.select('#share').style('display', 'block');
             d3.select('#result').style('display', 'inline-block');
-            d3.selectAll('#share *').style('display', 'inline-block');
             var amountCorrect = tracker.filter(a => a.correct).length;
             var exclamation = '';
             if (amountCorrect == levels) {
@@ -287,7 +287,7 @@
                     }
 
                     // check if from the same set
-                    
+
                     if (shuffled[a][3] > 0 && shuffled[a][3] == answers[b][3]) {
                         isValid = false;
                     }
@@ -306,7 +306,7 @@
                             isValid = false;
                         }
                     }
-                    */                    
+                    */
                 }
                 if (isValid) {
                     answers.push(shuffled[a]);
@@ -367,7 +367,7 @@
             var html = '';
             for (var a = 0; a < levels; a++) {
             	if (tracker.length == a) {
-            		html += '&#10192;';
+            		html += '&#9672;';
             	} else if (tracker.length > a) {
             		html += '&#9670;';
             	} else {

@@ -136,6 +136,7 @@ a:hover {
 
 #nextLevel,
 #showResults,
+#copyResultsMobile,
 #copyResultsAsText,
 #copyResultsAsImage {
 	border-radius: 10px;
@@ -144,12 +145,17 @@ a:hover {
 	font-size: 32px;
 	cursor: pointer;
 	padding: 10px 20px;
+	display: inline-block;
 }
 
+#copyResultsMobile,
 #copyResultsAsText,
 #copyResultsAsImage {
 	font-size: 24px;
 	margin-top: 5px;
+}
+
+#copyResultsMobile {
 	display: none;
 }
 
@@ -236,8 +242,12 @@ a:hover {
 		margin: 0 2px;
 	}
 	
+	#copyResultsMobile {
+		display: inline-block;
+	}
+	
+	#copyResultsAsText,
 	#copyResultsAsImage {
 		display: none !important;
-		opacity: 0;
 	}	
 }
