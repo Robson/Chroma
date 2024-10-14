@@ -51,7 +51,7 @@
     <script type="text/javascript">
 
 		var d = new Date();
-		var str = '0' + d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay();
+		var str = '0' + d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDate();
 		//str = '02024-10-15';
 		//str = '-' + Math.random() * 10;
 		var seed = cyrb128(str);
@@ -119,11 +119,15 @@
         var answers = [];
         var tracker = [];
 
+        function numberToMonth(number) {
+        	return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][number];
+        }
+
         function copyResultsAsText() {
 
         	var output = '#chroma ';
         	var d = new Date();
-			output += d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay();
+			output += d.getUTCFullYear() + '-' + numberToMonth(d.getUTCMonth()) + '-' + d.getUTCDate();
         	output += '\r\n';
 
         	for (var question of tracker) {
@@ -177,7 +181,7 @@
             extraBox
             	.append('div')
             	.html('Chroma<br/>' +
-            	      d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDay() + '<br/>' +
+            	      d.getUTCFullYear() + '-' + numberToMonth(d.getUTCMonth()) + '-' + d.getUTCDate() + '<br/>' +
             	      amountCorrect + ' correct out of ' + levels);
 
             for (var question of tracker) {
