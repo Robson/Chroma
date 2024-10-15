@@ -32,7 +32,7 @@
             <a href="https://github.com/Robson/Chroma">Code</a> by <a href="https://robson.plus">Robson</a>
         </div>
         <div id="set">
-            Colours: <a href="https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0">Dulux Popular</a>
+            Colours: <a id="colourSet"></a>
         </div>
     </div>
     <div id="progress">&#9671;&#9671;&#9671;&#9671;&#9671;</div>
@@ -50,12 +50,59 @@
 
     <script type="text/javascript">
 
-		var d = new Date();
-		var str = '0' + d.getUTCFullYear() + '-' + (d.getUTCMonth()+1) + '-' + d.getUTCDate();
-		//str = '02024-10-15';
-		//str = '-' + Math.random() * 10;
-		var seed = cyrb128(str);
+        var correctIndex;
+        var answers = [];
+        var tracker = [];
+
+    	const levels = 5;
+        var MinimumDeltaDifference = 30;
+
+		function getDaysBetweenDates(startDate, endDate) {
+			const oneDay = 1000 * 60 * 60 * 24;
+			const start = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+			const end = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+			return Math.round((end - start) / oneDay);
+		}
+
+		const startDate = new Date(Date.UTC(2024, 9, 13));
+		const endDate = new Date(); // Current date
+		var daysBetween = getDaysBetweenDates(startDate, endDate);
+
+		if (window.location.hash.substring(1) == 'test') {
+			daysBetween = Math.floor(Math.random() * 10000000);
+		}
+
+		var seed = cyrb128('a' + daysBetween);
         var rand = splitmix32(seed[0]);
+
+        var colours = coloursDuluxPopular;
+		switch (Math.floor(rand() * 2)) {
+			case 0:
+				colours = coloursDuluxPopular;
+				MinimumDeltaDifference = 30;
+				d3.select('#colourSet')
+					.attr('href', 'https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0')
+					.text('Dulux Popular');
+				break;
+			case 1:
+				colours = coloursDuluxHeritage;
+				MinimumDeltaDifference = 20;
+				d3.select('#colourSet')
+					.attr('href', 'https://www.duluxheritage.co.uk/en/colours')
+					.text('Dulux Heritage');
+				break;
+		}
+
+		colours = coloursDuluxHeritage;
+
+		// convert 0-255 rgb to hex rgb, if necessary
+		for (var a = 0; a < colours.length; a++) {
+			if (colours[a][1].includes(',')) {
+				colours[a][1] = colours[a][1].replace(/ /g, '');
+				var parts = colours[a][1].split(',');
+				colours[a][1] = parts.map(a => ('0' + (+a).toString(16)).slice(-2)).join('');
+			}
+		}
 
         function rgbToHue(rgb) {
             // Extract the red, green, and blue components from the RGB code
@@ -110,24 +157,11 @@
             };
         }
 
-        const levels = 5;
-        const MinimumHueDifference = 25;
-        const MinimumRgbDifference = 100;
-        const MinimumDeltaDifference = 30;
-
-        var correctIndex;
-        var answers = [];
-        var tracker = [];
-
-        function numberToMonth(number) {
-        	return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][number];
-        }
-
         function copyResultsAsText() {
 
-        	var output = '#chroma ';
+        	var output = '#Chroma\r\n';
         	var d = new Date();
-			output += d.getUTCFullYear() + '-' + numberToMonth(d.getUTCMonth()) + '-' + d.getUTCDate();
+			output += 'Challenge ' + (daysBetween + 1);
         	output += '\r\n';
 
         	for (var question of tracker) {
@@ -172,8 +206,6 @@
             } else if (amountCorrect == levels - 1) {
                 exclamation = '. Excellent!';
             }
-            //d3.select('#question').style('padding', '20px 10px 25px 10px')
-            //d3.select('#question').html(amountCorrect + ' correct out of ' + levels + exclamation)
             var resultBox = d3.select('#result');
             var extraBox = d3.select('#extra');
             extraBox.style('display', 'block');
@@ -181,7 +213,7 @@
             extraBox
             	.append('div')
             	.html('Chroma<br/>' +
-            	      d.getUTCFullYear() + '-' + numberToMonth(d.getUTCMonth()) + '-' + d.getUTCDate() + '<br/>' +
+            	      'Challenge ' + (daysBetween + 1) + '<br/>' +
             	      amountCorrect + ' correct out of ' + levels);
 
             for (var question of tracker) {
@@ -212,19 +244,6 @@
                         .html(inside)
                 }
             }
-        }
-
-        function showScore() {
-            var score = d3.select('#score');
-            var html = '';
-            for (var a = 0; a < levels; a++) {
-                if (tracker[a]) {
-                    html += '<span>' + (tracker[a].correct ? '&#9745;' : '&#9746;') + '</span>';
-                } else {
-                    html += '<span>&#9744;</span>';
-                }
-            }
-            score.html(html);
         }
 
         function clickAnswer(index) {
