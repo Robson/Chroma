@@ -53,9 +53,10 @@
         var correctIndex;
         var answers = [];
         var tracker = [];
+        var fixedAnswers = null;
 
     	const levels = 5;
-        var MinimumDeltaDifference = 30;
+        var minimumDeltaDifference = 30;
 
 		function getDaysBetweenDates(startDate, endDate) {
 			const oneDay = 1000 * 60 * 60 * 24;
@@ -68,30 +69,73 @@
 		const endDate = new Date(); // Current date
 		var daysBetween = getDaysBetweenDates(startDate, endDate);
 
-		if (window.location.hash.substring(1) == 'test') {
+		const now = new Date();
+		const month = now.getUTCMonth() + 1;
+		const date = now.getUTCDate();
+		var hash = date + '-' + month;
+
+		if (window.location.hash.substring(1) == 'random') {
 			daysBetween = Math.floor(Math.random() * 10000000);
+		}
+		if (window.location.hash.substring(1).length > 0) {
+			daysBetween = Math.floor(Math.random() * 10000000);
+			hash = window.location.hash.substring(1);
 		}
 
 		var seed = cyrb128('a' + daysBetween);
         var rand = splitmix32(seed[0]);
 
-        var colours = coloursDuluxPopular;
+        var set = coloursDuluxPopular;
 		switch (Math.floor(rand() * 2)) {
 			case 0:
-				colours = coloursDuluxPopular;
-				MinimumDeltaDifference = 30;
-				d3.select('#colourSet')
-					.attr('href', 'https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0')
-					.text('Dulux Popular');
+				var set = coloursDuluxPopular;
 				break;
 			case 1:
-				colours = coloursDuluxHeritage;
-				MinimumDeltaDifference = 20;
-				d3.select('#colourSet')
-					.attr('href', 'https://www.duluxheritage.co.uk/en/colours')
-					.text('Dulux Heritage');
+				var set = coloursDuluxHeritage;
 				break;
 		}
+
+		switch (hash) {
+			case '17-3': // saint patrick's day (all green)
+				set = coloursDuluxPopular;
+				fixedAnswers = [
+					'Pixie Green',
+					'Enchanted Eden',
+					'Highland Green',
+					'Buckingham',
+					'Emerald Glade',
+				];
+				shuffleArray(fixedAnswers);
+				break;
+			case '31-10': // halloween (all orange)
+				set = coloursDuluxPopular;
+				fixedAnswers = [
+					'Tangerine Twist',
+					'Rocket Fire',
+					'Orange Fizz',
+					'Collective Coral',
+					'Moroccan Flame',
+				];
+				shuffleArray(fixedAnswers);
+				break;
+			case '25-12': // christmas (all red and green)
+				set = coloursDuluxPopular;
+				fixedAnswers = [
+					'Salsa Red',
+					'Pixie Green',
+					'Pepper Red',
+					'Volcanic Red',
+					'Highland Green'
+				];
+				shuffleArray(fixedAnswers);
+				break;
+		}
+
+		var colours = set.items;
+		minimumDeltaDifference = set.deltaMinimum;
+		d3.select('#colourSet')
+			.attr('href', set.link)
+			.text(set.name);
 
 		// convert 0-255 rgb to hex rgb, if necessary
 		for (var a = 0; a < colours.length; a++) {
@@ -118,12 +162,10 @@
         }
 
         function copyResultsAsText() {
-
         	var output = '#Chroma\r\n';
         	var d = new Date();
 			output += 'Challenge ' + (daysBetween + 1);
         	output += '\r\n';
-
         	for (var question of tracker) {
         		if (question.correct) {
         			output += '\r\n✅ '
@@ -132,7 +174,6 @@
         		}
         		output += question.items[question.correctIndex][0] + ' ';
         	}
-
         	navigator.clipboard.writeText(output);
 			alert("Result copied to the clipboard!");
         }
@@ -258,13 +299,19 @@
             // the array will get shuffled later
             answers = [shuffled[0]];
 
+            // overwrite if it is a special day
+            if (fixedAnswers) {
+            	var chosen = shuffled.filter(a => a[0] == fixedAnswers[tracker.length])[0];
+            	answers = [chosen];
+            }
+
             for (var a = 1; a < shuffled.length; a++) {
                 var isValid = true;
                 for (var b = 0; b < answers.length; b++) {
                     var rgbExisting = hexToRgb(answers[b][1]);
                     var rgbCandidate = hexToRgb(shuffled[a][1]);
                     var deltaDiff = deltaE([rgbExisting.r, rgbExisting.g, rgbExisting.b], [rgbCandidate.r, rgbCandidate.g, rgbCandidate.b]);
-                    if (deltaDiff <= MinimumDeltaDifference) {
+                    if (deltaDiff <= minimumDeltaDifference) {
                         isValid = false;
                     }
                     // check if from the same set
@@ -297,6 +344,12 @@
             		}
             	}
             } while (!isValid);
+
+            if (fixedAnswers) {
+            	//console.log(answers);
+            	//console.log(fixedAnswers[tracker.length]);
+            	correctIndex = answers.findIndex(a => a[0] == fixedAnswers[tracker.length]);
+            }
 
             d3.select('#question').html('Which circle is <span class="highlight">' + answers[correctIndex][0] + '?</span>');
 
