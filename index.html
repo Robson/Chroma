@@ -102,44 +102,6 @@
 			}
 		}
 
-        function rgbToHue(rgb) {
-            // Extract the red, green, and blue components from the RGB code
-            var r = parseInt(rgb.substring(0, 2), 16) / 255;
-            var g = parseInt(rgb.substring(2, 4), 16) / 255;
-            var b = parseInt(rgb.substring(4, 6), 16) / 255;
-
-            // Find the maximum and minimum values among the RGB components
-            var max = Math.max(r, g, b);
-            var min = Math.min(r, g, b);
-
-            // Calculate the hue
-            var hue;
-            if (max === min) {
-                hue = 0; // Achromatic case
-            } else {
-                var delta = max - min;
-                switch (max) {
-                    case r:
-                        hue = ((g - b) / delta + (g < b ? 6 : 0)) * 60;
-                        break;
-                    case g:
-                        hue = ((b - r) / delta + 2) * 60;
-                        break;
-                    case b:
-                        hue = ((r - g) / delta + 4) * 60;
-                        break;
-                }
-            }
-
-            return Math.round(hue);
-        }
-
-        for (var a = 0; a < colours.length; a++) {
-            if (colours[a][2] < 0) {
-                colours[a][2] = rgbToHue(colours[a][1]);
-            }
-        }
-
         function shuffleArray(arr) {
             for (let i = arr.length - 1; i >= 0; i--) {
                 const j = Math.floor(rand() * (i + 1));
@@ -192,7 +154,6 @@
         function showResults() {
             d3.select('#answers').style('display', 'none');
             d3.select('#finish').style('display', 'none');
-            //d3.select('#score').style('display', 'none');
             d3.select('#progress').style('display', 'none');
             d3.select('#question').style('display', 'none');
             d3.select('#share').style('display', 'block');
@@ -306,28 +267,10 @@
                     if (deltaDiff <= MinimumDeltaDifference) {
                         isValid = false;
                     }
-
                     // check if from the same set
-
                     if (shuffled[a][3] > 0 && shuffled[a][3] == answers[b][3]) {
                         isValid = false;
                     }
-                    /*
-                    if (isValid) {
-                        if (Math.abs(shuffled[a][2] - answers[b][2]) < MinimumHueDifference) {
-                            isValid = false;
-                        }
-                    }
-                    */
-                   /*
-                    if (isValid) {
-                        if (Math.abs(rgbExisting.r - rgbCandidate.r) +
-                            Math.abs(rgbExisting.g - rgbCandidate.g) +
-                            Math.abs(rgbExisting.b - rgbCandidate.b) < MinimumRgbDifference) {
-                            isValid = false;
-                        }
-                    }
-                    */
                 }
                 if (isValid) {
                     answers.push(shuffled[a]);
@@ -338,7 +281,6 @@
             }
 
             if (answers.length < amount) {
-                console.log('reroll!');
                 showNewLevel();
                 return;
             }
