@@ -15,7 +15,7 @@
     You'll want to remove that if you use this page.
     ************************************************
     -->
-    <title>Chroma</title>
+    <title>Chroma - Daily Colour Guessing Game</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,11 +28,11 @@
 <body>
 
     <div id="info">
+        <div id="set">
+            Today's Colours: <a id="colourSet"></a>
+        </div>
         <div id="about">
             <a href="https://github.com/Robson/Chroma">Code</a> by <a href="https://robson.plus">Robson</a>
-        </div>
-        <div id="set">
-            Colours: <a id="colourSet"></a>
         </div>
     </div>
     <div id="progress">&#9671;&#9671;&#9671;&#9671;&#9671;</div>
@@ -244,6 +244,9 @@
                         .html(inside)
                 }
             }
+            d3.select('#share')
+            	.append('p')
+            	.html("Come back tomorrow for a new set of colours!");
         }
 
         function clickAnswer(index) {
@@ -351,7 +354,7 @@
             	correctIndex = answers.findIndex(a => a[0] == fixedAnswers[tracker.length]);
             }
 
-            d3.select('#question').html('Which circle is <span class="highlight">' + answers[correctIndex][0] + '?</span>');
+            d3.select('#question').html('Which colour is <span class="highlight">' + answers[correctIndex][0] + '?</span>');
 
             d3.selectAll('#answers div').remove();
             for (var index in answers) {
