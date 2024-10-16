@@ -163,7 +163,7 @@ a:hover {
 
 #result {
 	padding: 5px 0 15px;
-	margin: 0 auto;
+	margin: 10px auto 0;
 	width: auto;
 	max-width: 90%;
 	display: inline-block;
@@ -191,9 +191,23 @@ a:hover {
 }
 
 @media (max-width: 800px) {
+
+	#info {
+		display: block;
+	}
+
+	#info #set,
+	#info #about {
+		display: block;
+		text-align: center;
+	}
+	
+	#info #about {
+		display: none;
+	}
 	
 	#question {
-		padding: 25px 20px 30px 20px;		
+		padding: 0 20px 50px 20px;	
 	}
 	
 	#question,
@@ -226,11 +240,7 @@ a:hover {
 	}
 	
 	.answersMini {
-		margin: 0;
-	}
-	
-	#result div {
-		margin: 0 2px;
+		margin: 0 2px !important;
 	}
 	
 	#copyResultsMobile {
