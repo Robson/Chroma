@@ -1,7 +1,7 @@
 // colours from https://github.com/Margaret2/pantone-colors
 var coloursPantoneFHI = {
 	name: 'Pantone FHI',
-	link: 'https://www.pantone.com/uk/en/fashion-home-interiors',
+	link: 'https://www.pantone.com/fashion-home-interiors',
 	deltaMinimum: 30,
 	items: [
 		["egret", "f3ece0", 1, 0],
