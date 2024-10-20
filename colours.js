@@ -1,4 +1,4 @@
-// colours from https://github.com/Margaret2/pantone-colors
+// colours from https://github.com/Margaret2/pantone-colors //
 var coloursPantoneFHI = {
 	name: 'Pantone FHI',
 	link: 'https://www.pantone.com/fashion-home-interiors',
