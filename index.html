@@ -16,14 +16,14 @@
     ************************************************
     -->
     <title>Chroma - Daily Colour Game</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="styles.css" />
-    <script type="text/javascript" src="rng.js"></script>
-    <script type="text/javascript" src="colours.js"></script>
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles.css">
+    <script src="rng.js"></script>
+    <script src="colours.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -45,13 +45,13 @@
     <div id="share">
     	<div id="copyResultsMobile" onclick="copyResultsAsText()">Copy Results</div>
     	<div id="copyResultsAsText" onclick="copyResultsAsText()">Copy Results as Text</div>
-    	<br/>
+    	<br>
     	<div id="copyResultsAsImage" onclick="copyResultsAsImage()">Copy Results as Image</div>
     </div>
     <div id="next"><div id="nextLevel" onclick="showNewLevel()">Next Question</div></div>
     <div id="finish"><div id="showResults" onclick="showResults()">Show Results</div></div>
 
-    <script type="text/javascript">
+    <script>
 
         var correctIndex;
         var answers = [];
