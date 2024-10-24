@@ -68,7 +68,7 @@ This is the webpage with the game.
 
 This is where all the colour sets are stored, along with the information for those sets (name, URL, etc).
 
-## rng.js
+### rng.js
 
 This is a seedable random number generator by _bryc_ and obtained from here:
 https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
@@ -83,7 +83,7 @@ This is built using:
  * HTML
  * CSS
  * JavaScript
-   * [D3.js](https://github.com/d3/d3)
+   * [D3](https://github.com/d3/d3)
    * [html2canvas](https://html2canvas.hertzen.com/)
    
 ## Validation
