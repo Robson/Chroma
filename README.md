@@ -68,6 +68,9 @@ This is the webpage with the game.
 
 This is where all the colour sets are stored, along with the information for those sets (name, URL, etc).
 
+This has code written by user993683 from here:
+https://stackoverflow.com/questions/13586999/color-difference-similarity-between-two-values-with-js
+
 ### rng.js
 
 This is a seedable random number generator by _bryc_ and obtained from here:
