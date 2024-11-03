@@ -27,10 +27,13 @@ The colour set is randomly chosen each day from this list:
  * [Pantone: Fashion, Home & Interiors](https://www.pantone.com/fashion-home-interiors)
  * [Dulux: Popular](https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0)
  * [Dulux: Heritage](https://www.duluxheritage.co.uk/en/colours)
+ * [Farrow & Ball: Signature Palette](https://www.farrow-ball.com/paint/signature-palette)
  
 The first set has substantially more colours than the other sets, so that set is chosen most often.
  
 The [X11](https://en.wikipedia.org/wiki/X11_color_names) colour set is also written into the project, but currently disabled.
+
+The data for the Pantone set was sourced from [Margaret's Pantone Repository](https://github.com/Margaret2/pantone-colors).
 
 ## Live Version
 
@@ -68,11 +71,6 @@ This is the webpage with the game.
 
 This is where all the colour sets are stored, along with the information for those sets (name, URL, etc).
 
-### rng.js
-
-This is a seedable random number generator by _bryc_ and obtained from here:
-https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
-
 ### styles.css
 
 All formatting and layout information is contained in this file.
@@ -85,6 +83,7 @@ This is built using:
  * JavaScript
    * [D3](https://github.com/d3/d3)
    * [html2canvas](https://html2canvas.hertzen.com/)
+   * [seedrandom.js](https://github.com/davidbau/seedrandom)
    
 ## Validation
    
