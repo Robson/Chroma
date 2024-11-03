@@ -25,15 +25,13 @@ Chroma is a daily game where you guess the colour based on the name. Each day th
 The colour set is randomly chosen each day from this list:
 
  * [Pantone: Fashion, Home & Interiors](https://www.pantone.com/fashion-home-interiors)
+   * This set has substantially more colours than the other sets, so this set is chosen most often.
+   * The data for this was sourced from [Margaret's Pantone Repository](https://github.com/Margaret2/pantone-colors).
  * [Dulux: Popular](https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0)
  * [Dulux: Heritage](https://www.duluxheritage.co.uk/en/colours)
  * [Farrow & Ball: Signature Palette](https://www.farrow-ball.com/paint/signature-palette)
- 
-The first set has substantially more colours than the other sets, so that set is chosen most often.
- 
-The [X11](https://en.wikipedia.org/wiki/X11_color_names) colour set is also written into the project, but currently disabled.
-
-The data for the Pantone set was sourced from [Margaret's Pantone Repository](https://github.com/Margaret2/pantone-colors).
+ * [X11](https://en.wikipedia.org/wiki/X11_color_names)
+   * Currently disabled.
 
 ## Live Version
 
