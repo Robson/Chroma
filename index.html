@@ -527,7 +527,6 @@
 
         // see if the user already played this challenge and is remembering results
         var savedData = getCookie('db' + daysBetween);
-        alert(savedData);
         if (savedData && savedData.length == levels) {
         	hasPlayed = true;
         	for (var a = 0; a < levels; a++) {
