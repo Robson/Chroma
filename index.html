@@ -48,15 +48,66 @@
     	<br>
     	<div id="copyResultsAsImage" onclick="copyResultsAsImage()">Copy Results as Image</div>
     </div>
+    <div id="save">
+    	<div id="saveCookie" onclick="enableCookies()">Always Remember Results<br><span>🍪 this uses cookies 🍪</span></div>
+    </div>
     <div id="next"><div id="nextLevel" onclick="showNewLevel()">Next Question</div></div>
     <div id="finish"><div id="showResults" onclick="showResults()">Show Results</div></div>
 
     <script>
 
+		function getCookie(name) {
+			const nameEQ = name + "=";
+			const cookiesArray = document.cookie.split(";");
+			for (let i = 0; i < cookiesArray.length; i++) {
+				let cookie = cookiesArray[i].trim();
+				if (cookie.indexOf(nameEQ) === 0) {
+					return decodeURIComponent(cookie.substring(nameEQ.length));
+				}
+			}
+			return null;
+		}
+
+		function setCookie(name, value, temporary) {
+			var expireDate = new Date();
+			if (temporary) {
+				expireDate.setTime((new Date()).getTime() + (7 * 24 * 60 * 60 * 1000));
+			} else {
+				expireDate.setTime((new Date()).getTime() + (365 * 24 * 60 * 60 * 1000));
+			}
+			let expires = "; expires=" + expireDate.toUTCString();
+			document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+		}
+
+		var isSavingResults = false;
+		if (getCookie('SaveResults') == '1') {
+			isSavingResults = true;
+			// resave for another year
+			setCookie('SaveResults', '1', temporary=false);
+		}
+
+		function saveResults() {
+			// remember that the user has chosen to accept cookies
+			setCookie('SaveResults', '1', temporary=false);
+			// save the result in case they come back later today
+			var answers = '';
+			for (var entry of tracker) {
+				answers += entry.clickedIndex;
+			}
+			setCookie('db' + daysBetween, answers, temporary=true);
+		}
+
+		function enableCookies() {
+			saveResults();
+			alert("Success! Your results will now be remember if you return later in the day.");
+			d3.select('#save').style('display', 'none');
+		}
+
         var correctIndex;
         var answers = [];
         var tracker = [];
         var fixedAnswers = null;
+        var hasPlayed = false;
 
     	const levels = 5;
         var minimumDeltaDifference = 30;
@@ -264,6 +315,11 @@
         }
 
         function showResults() {
+            if (!isSavingResults) {
+	            d3.select('#save').style('display', 'block');
+	        } else {
+	        	saveResults();
+	        }
             d3.select('#answers').style('display', 'none');
             d3.select('#finish').style('display', 'none');
             d3.select('#progress').style('display', 'none');
@@ -469,7 +525,21 @@
 
         }
 
-        showNewLevel();
+        // see if the user already played this challenge and is remembering results
+        var savedData = getCookie('db' + daysBetween);
+        alert(savedData);
+        if (savedData && savedData.length == levels) {
+        	hasPlayed = true;
+        	for (var a = 0; a < levels; a++) {
+        		showNewLevel();
+        		clickAnswer(+savedData[a]);
+        	}
+        	showResults();
+        }
+
+		if (!hasPlayed) {
+        	showNewLevel();
+        }
 
     </script>
 

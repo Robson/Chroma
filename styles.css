@@ -129,7 +129,8 @@ a:hover {
 #showResults,
 #copyResultsMobile,
 #copyResultsAsText,
-#copyResultsAsImage {
+#copyResultsAsImage,
+#saveCookie {
 	border-radius: 10px;
 	background: black;
 	color: white;
@@ -137,6 +138,14 @@ a:hover {
 	cursor: pointer;
 	padding: 10px 20px;
 	display: inline-block;
+}
+
+#saveCookie {
+	font-size: 21px;
+}
+
+#saveCookie span {
+	font-size: 16px;
 }
 
 #copyResultsMobile,
@@ -151,7 +160,8 @@ a:hover {
 }
 
 #finish,
-#share {
+#share,
+#save {
 	display: none;
 }
 
