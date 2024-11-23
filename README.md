@@ -30,6 +30,8 @@ The colour set is randomly chosen each day from this list:
  * [Dulux: Popular](https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0)
  * [Dulux: Heritage](https://www.duluxheritage.co.uk/en/colours)
  * [Farrow & Ball: Signature Palette](https://www.farrow-ball.com/paint/signature-palette)
+ * [Traditional Colours of Japan](https://en.wikipedia.org/wiki/Traditional_colors_of_Japan)
+   * The data for this was sourced from [Meodai's Color-Name-Lists Repository](https://github.com/meodai/color-name-lists).
  * [X11](https://en.wikipedia.org/wiki/X11_color_names)
    * Currently disabled.
 

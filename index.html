@@ -136,10 +136,10 @@
 			hash = window.location.hash.substring(1);
 		}
 
-		var rand = new Math.seedrandom('_' + daysBetween);
+		var rand = new Math.seedrandom('=' + daysBetween);
 
         var set = coloursPantoneFHI;
-		switch (Math.floor(rand() * 5)) {
+		switch (Math.floor(rand() * 6)) {
 			case 0:
 				var set = coloursDuluxPopular;
 				break;
@@ -149,6 +149,9 @@
 			case 2:
 				var set = coloursFarrowBallSignature;
                 break;
+            case 3:
+            	var set = coloursJapanTraditional;
+            	break;
 		}
 
         switch (hash) {
@@ -258,14 +261,17 @@
         }
 
         function ToTitleCase(str) {
-            return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+            return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+                      .split('(').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('(');
         }
 
-        // convert names to Title Case, if necessary
+		for (var a = 0; a < colours.length; a++) {
+			colours[a][0] = ToTitleCase(colours[a][0]);
+		}
+
+		// convert names to Title Case, if necessary
         if (colours[0][0] == colours[0][0].toLowerCase()) {
-            for (var a = 0; a < colours.length; a++) {
-                colours[a][0] = ToTitleCase(colours[a][0]);
-            }
+        	convertToTitleCase();
         }
 
         function shuffleArray(arr) {
