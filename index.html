@@ -363,19 +363,17 @@
                         0.587 * (rgb.g * rgb.g) +
                         0.114 * (rgb.b * rgb.b)
                     );
-                    var inside = '';
+                    var resultClass = '';
                     if (+index == +question.correctIndex) {
-                        inside = '&#10026;';
+                        resultClass = ' yes_' + (hsp > 127.5 ? 'black' : 'white');
                     } else if (+index == +question.clickedIndex) {
-                        inside = '×';
+                        resultClass = ' no_' + (hsp > 127.5 ? 'black' : 'white');
                     }
                     miniAnswers
                         .append('div')
-                        .attr('class', 'answersMini')
+                        .attr('class', 'answersMini' + resultClass)
                         .attr('title', circle[0])
-                        .style('background-color', '#' + circle[1])
-                        .style('color', hsp > 127.5 ? 'black' : 'white')
-                        .html(inside)
+                        .style('background-color', '#' + circle[1]);
                 }
             }
             d3.select('#share')
@@ -391,13 +389,19 @@
                 items: answers.slice(0)
             }
             for (var a = 0; a < answers.length; a++) {
+				var rgb = hexToRgb(answers[a][1]);
+				var hsp = Math.sqrt(
+					0.299 * (rgb.r * rgb.r) +
+					0.587 * (rgb.g * rgb.g) +
+					0.114 * (rgb.b * rgb.b)
+				);
                 var circle = d3.select('.answer' + a);
                 circle.classed('enabled', false);
                 circle.on('mousedown', null);
                 if (a == correctIndex) {
-                    circle.html('&#10026;');
+                    circle.classed('yes_' + (hsp > 127.5 ? 'black' : 'white'), true);
                 } else if (a == index) {
-                    circle.html('×');
+                    circle.classed('no_' + (hsp > 127.5 ? 'black' : 'white'), true);
                 }
             }
             tracker.push(log);
