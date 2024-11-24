@@ -1,4 +1,4 @@
-# Chroma 
+# Chroma
 
 ## Table of Contents
 
