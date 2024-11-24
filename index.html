@@ -365,9 +365,9 @@
                     );
                     var inside = '';
                     if (+index == +question.correctIndex) {
-                        inside = '&#9745;';
+                        inside = '&#9733;';
                     } else if (+index == +question.clickedIndex) {
-                        inside = '&#9746;';
+                        inside = '×';
                     }
                     miniAnswers
                         .append('div')
@@ -395,9 +395,9 @@
                 circle.classed('enabled', false);
                 circle.on('mousedown', null);
                 if (a == correctIndex) {
-                    circle.html('&#9745;');
+                    circle.html('&#9733;');
                 } else if (a == index) {
-                    circle.html('&#9746;');
+                    circle.html('×');
                 }
             }
             tracker.push(log);
