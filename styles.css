@@ -83,7 +83,7 @@ body {
 	display: inline-block;
 	cursor: default;
 	vertical-align: middle;
-	line-height: 36px;
+	line-height: 37px;
 	font-size: 28px;
 }
 
@@ -235,7 +235,7 @@ a:hover {
 		border: 3px solid black;
 		height: 60px;
 		width: 60px;
-		line-height: 52px;
+		line-height: 55px;
 		font-size: 50px;
 	}
 	

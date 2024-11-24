@@ -365,7 +365,7 @@
                     );
                     var inside = '';
                     if (+index == +question.correctIndex) {
-                        inside = '&#9733;';
+                        inside = '&#10026;';
                     } else if (+index == +question.clickedIndex) {
                         inside = '×';
                     }
@@ -395,7 +395,7 @@
                 circle.classed('enabled', false);
                 circle.on('mousedown', null);
                 if (a == correctIndex) {
-                    circle.html('&#9733;');
+                    circle.html('&#10026;');
                 } else if (a == index) {
                     circle.html('×');
                 }
