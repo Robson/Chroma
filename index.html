@@ -138,21 +138,26 @@
 
 		var rand = new Math.seedrandom('c' + daysBetween);
 
-        var set = coloursPantoneFHI;
-		switch (Math.floor(rand() * 6)) {
-			case 0:
-				var set = coloursDuluxPopular;
-				break;
-			case 1:
-				var set = coloursDuluxHeritage;
-                break;
-			case 2:
-				var set = coloursFarrowBallSignature;
-                break;
-            case 3:
-            	var set = coloursJapanTraditional;
-            	break;
+		function weightedRandomChoice(items) {
+		    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+		    let randomWeight = rand() * totalWeight;
+		    for (let item of items) {
+		        randomWeight -= item.weight;
+		        if (randomWeight <= 0) {
+		            return item;
+		        }
+		    }
 		}
+
+		const schemes = [
+			{ weight: 45, arr: coloursPantoneFHI },
+			{ weight: 25, arr: coloursDuluxPopular },
+			{ weight: 10, arr: coloursDuluxHeritage },
+			{ weight: 10, arr: coloursFarrowBallSignature },
+			{ weight: 10, arr: coloursJapanTraditional }
+		];
+
+		var set = weightedRandomChoice(schemes).arr;
 
         switch (hash) {
             case '1-3': // saint david's day
