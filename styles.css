@@ -38,6 +38,10 @@ body {
 	font-family: 'Roboto Slab', 'Roboto', sans-serif;
 }
 
+.emoji {
+	font-size: 95%;
+}
+
 #progress {
 	background: black;
 	color: white;

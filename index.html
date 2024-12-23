@@ -349,11 +349,13 @@
             var extraBox = d3.select('#extra');
             extraBox.style('display', 'block');
 			var d = new Date();
+			var celebrateEmoji = ['🎈','🎆','✨','🎉','🎊','🎨','💎','🏅','🏆','🚀','🌈'];
+			celebrateEmoji = celebrateEmoji[~~(rand() * celebrateEmoji.length)];
             extraBox
             	.append('div')
             	.html('Chroma<br/>' +
             	      'Challenge ' + (daysBetween + 1) + '<br/>' +
-            	      amountCorrect + ' correct out of ' + levels);
+            	      (amountCorrect == levels ? '<span class="emoji">' + celebrateEmoji + '</span> All answers correct! <span class="emoji">' + celebrateEmoji + '</span>': amountCorrect + ' correct out of ' + levels));
 
             for (var question of tracker) {
                 var line = resultBox.append('div');
