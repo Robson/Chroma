@@ -216,6 +216,11 @@ a:hover {
 	margin: 5px 0 0;
 }
 
+x#result p.longname {
+	font-size: 15px;
+	margin-top: 10px;
+}
+
 #result div {
 	margin: 0 5px;
 	padding: 0;
