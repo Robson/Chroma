@@ -230,7 +230,7 @@ var coloursCrayola = {
 		['Chocolate','BD8260',0,0],
 		['Coconut','FEFEFE',0,0],
 		['Daffodil','FFFF31',0,0],
-		['Dirt','B7653',0,0],
+		['Dirt','9B7653',0,0],
 		['Eucalyptus','44D7A8',0,0],
 		['Fresh Air','A6E7FF',0,0],
 		['Grape','6F2DA8',0,0],
