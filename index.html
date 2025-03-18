@@ -99,7 +99,7 @@
 
 		function enableCookies() {
 			saveResults();
-			alert("Success! Your results will now be remember if you return later in the day.");
+			alert("Success! Your results will be remembered if you return later in the day.");
 			d3.select('#save').style('display', 'none');
 		}
 
@@ -136,7 +136,7 @@
 			hash = window.location.hash.substring(1);
 		}
 
-		var rand = new Math.seedrandom('s' + daysBetween);
+		var rand = new Math.seedrandom('8' + daysBetween);
 
 		function weightedRandomChoice(items) {
 		    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
@@ -150,12 +150,13 @@
 		}
 
 		const schemes = [
-			{ weight: 35, arr: coloursPantoneFHI },
+			{ weight: 30, arr: coloursPantoneFHI },
 			{ weight: 20, arr: coloursDuluxPopular },
 			{ weight: 15, arr: coloursCrayola },
 			{ weight: 10, arr: coloursDuluxHeritage },
 			{ weight: 10, arr: coloursFarrowBallSignature },
-			{ weight: 10, arr: coloursJapanTraditional }
+			{ weight: 10, arr: coloursJapanTraditional },
+			{ weight:  5, arr: coloursCitadelPaints }
 		];
 
 		var set = weightedRandomChoice(schemes).arr;
@@ -369,7 +370,7 @@
             	.append('div')
             	.html('Chroma<br/>' +
             	      'Challenge ' + (daysBetween + 1) + '<br/>' +
-            	      (amountCorrect == levels ? '<span class="emoji">' + celebrateEmoji + '</span> Completely Correct! <span class="emoji">' + celebrateEmoji + '</span>': amountCorrect + ' correct out of ' + levels));
+            	      (amountCorrect == levels ? '<span class="emoji">' + celebrateEmoji + '</span> Completely Correct! <span class="emoji">' + celebrateEmoji + '</span>': amountCorrect + '/' + levels + ' Correct'));
 
             for (var question of tracker) {
                 var line = resultBox.append('div');
