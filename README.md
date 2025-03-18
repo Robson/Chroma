@@ -24,6 +24,8 @@ Chroma is a daily game where you guess the colour based on the name. Each day th
 
 The colour set is randomly chosen each day from this list:
 
+ * [Citadel Paints](https://citadelcolour.com/)
+   * The data for this was sourced from [List of Citadel paints](https://handwiki.org/wiki/List_of_Citadel_paints) on the HandWiki.
  * [Crayola Crayons](https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors)
  * [Dulux: Heritage](https://www.duluxheritage.co.uk/en/colours)
  * [Dulux: Popular](https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0) 
