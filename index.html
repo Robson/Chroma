@@ -22,6 +22,7 @@
     <link type="text/css" rel="stylesheet" href="styles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
     <script src="colours.js"></script>
+    <script src="events.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -108,6 +109,7 @@
         var tracker = [];
         var fixedAnswers = null;
         var hasPlayed = false;
+        var emojiOverwrite = '';
 
     	const levels = 5;
         var minimumDeltaDifference = 30;
@@ -119,14 +121,17 @@
 			return Math.round((end - start) / oneDay);
 		}
 
-		const startDate = new Date(Date.UTC(2024, 9, 21));
+		const startDate = new Date(2024, 9, 21);
 		const endDate = new Date();
+
 		var daysBetween = getDaysBetweenDates(startDate, endDate) + 1;
 
 		const now = new Date();
-		const month = now.getUTCMonth() + 1;
-		const date = now.getUTCDate();
+		const month = now.getMonth() + 1;
+		const date = now.getDate();
 		var hash = date + '-' + month;
+
+		console.log(startDate, endDate, daysBetween, now, month, date, hash);
 
 		if (window.location.hash.substring(1) == 'random') {
 			daysBetween = Math.floor(Math.random() * 10000000);
@@ -136,7 +141,7 @@
 			hash = window.location.hash.substring(1);
 		}
 
-		var rand = new Math.seedrandom('8' + daysBetween);
+		var rand = new Math.seedrandom('zz' + daysBetween);
 
 		function weightedRandomChoice(items) {
 		    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
@@ -149,121 +154,25 @@
 		    }
 		}
 
-		// does not need to add to 100
 		const schemes = [
-			{ weight: 25, arr: coloursPantoneFHI },
-			{ weight: 20, arr: coloursDuluxPopular },
-			{ weight: 15, arr: coloursCrayola },
-			{ weight: 10, arr: coloursDuluxHeritage },
-			{ weight: 10, arr: coloursFarrowBallSignature },
+			{ weight: 50, arr: coloursPantoneFHI },
+			{ weight: 50, arr: coloursDuluxPopular },
+			{ weight: 50, arr: coloursIngrid },
+			{ weight: 25, arr: coloursCrayola },
+			{ weight: 25, arr: coloursDuluxHeritage },
+			{ weight: 25, arr: coloursFarrowBallSignature },
 			{ weight: 10, arr: coloursJapanTraditional },
-			{ weight:  5, arr: coloursLego },
-			{ weight:  5, arr: coloursCitadelPaints }
+			{ weight: 10, arr: coloursLego },
+			{ weight: 10, arr: coloursCitadelPaints }
 		];
 
 		var set = weightedRandomChoice(schemes).arr;
 
-        switch (hash) {
-            case '1-3': // saint david's day
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Leek Green',
-                    'Mountain View',
-                    'Daffodil',
-                    'Dragon Fire',
-                    'Lambs Wool',
-                ];
-                shuffleArray(fixedAnswers);
-                break;
-			case '17-3': // saint patrick's day
-                set = coloursPantoneFHI;
-				fixedAnswers = [
-                    'Irish Green',
-					'Shamrock',
-					'Blarney',
-					'Kelly Green',
-					'Irish Cream',
-				];
-				shuffleArray(fixedAnswers);
-                break;
-            case '23-4': // saint george's day
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'English Rose',
-                    'English Manor',
-                    'English Ivy',
-                    'English Lavendar',
-                    'Royal Blue',
-                    'London Fog',
-                    'Dragon Fire',
-                ];
-                shuffleArray(fixedAnswers);
-                break;
-            case '24-6': // marie's birthday
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Marine Blue',
-                    'Maritime Blue',
-                    'Mazarine Blue',
-                    'Ultramarine',
-                    'Deep Ultramarine',
-                    'Aquamarine',
-                ];
-                shuffleArray(fixedAnswers);
-                break;
-            case '14-7': // bastille day
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Provence',
-                    'Limoges',
-                    'Bijou Blue',
-                    'Parisian Blue',
-                    'French Blue',
-                    'Parisian Night',
-                    'Eiffel Tower',
-                    'French Roast',
-                    'French Vanilla',
-                ];
-                shuffleArray(fixedAnswers);
-                break;
-			case '31-10': // halloween
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Phantom',
-                    'Pumpkin Spice',
-                    'Midnight',
-                    'Pumpkin',
-                    'Purple Magic',
-                    'Nightshadow Blue',
-                    'Pureed Pumpkin',
-                    'Harvest Pumpkin',
-                    'Ghost Gray',
-                    'Moonlight',
-                ];
-				shuffleArray(fixedAnswers);
-                break;
-            case '5-11': // guy fawkes night
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Firecracker',
-                    'Flame',
-                    'Powder Blue',
-                    'Powder Pink',
-                    'Flame Scarlet',
-                ];
-                shuffleArray(fixedAnswers);
-                break;
-			case '25-12': // christmas
-                set = coloursPantoneFHI;
-                fixedAnswers = [
-                    'Winter White',
-                    'Mistletoe',
-                    'Holly Berry',
-                    'Tinsel',
-                    'Ribbon Red'
-                ];
-				shuffleArray(fixedAnswers);
-				break;
+		var event = applyEventWhenNecessary();
+		if (event != null) {
+			set = event.set;
+			fixedAnswers = event.fixedAnswers;
+			emojiOverwrite = event.emojiOverwrite;
 		}
 
 		var colours = set.items;
@@ -366,6 +275,8 @@
             extraBox.style('display', 'block');
 			var d = new Date();
 			var celebrateEmoji = ['🎈','🎆','✨','🎉','🎊','🎨','💎','🏅','🏆','🚀','🌈'];
+			if (emojiOverwrite)
+				celebrateEmoji = emojiOverwrite;
 			celebrateEmoji = celebrateEmoji[~~(rand() * celebrateEmoji.length)];
 			if (hash == '24-6') { celebrateEmoji = '💙'; }
             extraBox
