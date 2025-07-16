@@ -48,21 +48,6 @@ function applyEventWhenNecessary() {
 			];
 			emojiOverwrite = ['💙'];
 			break;
-		case '13-7': // robson birthday
-			set = coloursCrayola;
-			fixedAnswers = [
-				'Wisteria',
-				'Vivid Violet',
-				'Royal Purple',
-				'Purple Heart',
-				'Maximum Red Purple',
-				'Maximum Purple',
-				'Plum',
-				'Purple Mountains\' Majesty',
-				'Maximum Blue Purple'
-			];
-			emojiOverwrite = ['💜'];
-			break;
 		case '14-7': // bastille day
 			set = coloursPantoneFHI;
 			fixedAnswers = [
@@ -77,6 +62,21 @@ function applyEventWhenNecessary() {
 				'French Vanilla',
 			];
 			emojiOverwrite = ['🥐','🥖'];
+			break;
+		case '29-7': // robson birthday
+			set = coloursCrayola;
+			fixedAnswers = [
+				'Wisteria',
+				'Vivid Violet',
+				'Royal Purple',
+				'Purple Heart',
+				'Maximum Red Purple',
+				'Maximum Purple',
+				'Plum',
+				'Purple Mountains\' Majesty',
+				'Maximum Blue Purple'
+			];
+			emojiOverwrite = ['💜'];
 			break;
 		case '31-10': // halloween
 			set = coloursPantoneFHI;
