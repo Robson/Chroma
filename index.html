@@ -383,7 +383,7 @@
 
             // overwrite if it is a special day
             if (fixedAnswers) {
-            	var chosen = shuffled.filter(a => a[0] == fixedAnswers[tracker.length])[0];
+            	var chosen = shuffled.filter(a => a[0].toLowerCase() == fixedAnswers[tracker.length].toLowerCase())[0];
             	answers = [chosen];
             }
 
@@ -430,7 +430,7 @@
             if (fixedAnswers) {
             	//console.log(answers);
             	//console.log(fixedAnswers[tracker.length]);
-            	correctIndex = answers.findIndex(a => a[0] == fixedAnswers[tracker.length]);
+            	correctIndex = answers.findIndex(a => a[0].toLowerCase() == fixedAnswers[tracker.length].toLowerCase());
             }
 
             d3.select('#question').html('Which colour is <span class="highlight">' + answers[correctIndex][0] + '?</span>');

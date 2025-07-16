@@ -78,6 +78,25 @@ function applyEventWhenNecessary() {
 			];
 			emojiOverwrite = ['💜'];
 			break;
+		case '29-9': // national coffee day
+			set = coloursPantoneFHI;
+			fixedAnswers = [
+				'turkish coffee',
+				'black coffee',
+				'latte',
+				'coffee liqueur',
+				'coffee bean',
+				'cafe au lait',
+				'mocha mousse',
+				'mocha bisque',
+				'french roast',
+				'espresso',
+				'iced coffee',
+				'chicory coffee',
+				'java'
+			];
+			emojiOverwrite = ['☕'];
+			break;
 		case '31-10': // halloween
 			set = coloursPantoneFHI;
 			fixedAnswers = [
@@ -108,11 +127,12 @@ function applyEventWhenNecessary() {
 		case '25-12': // christmas
 			set = coloursPantoneFHI;
 			fixedAnswers = [
-				'Winter White',
-				'Mistletoe',
-				'Holly Berry',
-				'Tinsel',
-				'Ribbon Red'
+				'winter white',
+				'mistletoe',
+				'holly berry',
+				'tinsel',
+				'snow white',
+				'ribbon red'
 			];
 			emojiOverwrite = ['🎅','🎄','🤶','⛄'];
 			break;
