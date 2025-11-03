@@ -31,6 +31,7 @@ The colour set is randomly chosen each day from this list:
  * [Dulux: Popular](https://www.dulux.co.uk/en/colour-details/filters/h_White#tabId=item0) 
  * [Farrow & Ball: Signature Palette](https://www.farrow-ball.com/paint/signature-palette)
  * [Ingrid Sundberg's Colour Thesaurus](https://ingridsnotes.wordpress.com/2014/02/04/the-color-thesaurus/)
+ * [Johnstone's Paint](https://www.johnstonespaint.com/colour-directory)
  * [LEGO](https://brickset.com/colours/status-All/)
  * [Pantone: Fashion, Home & Interiors](https://www.pantone.com/fashion-home-interiors)
    * This set has substantially more colours than the other sets, so this set is chosen most often.

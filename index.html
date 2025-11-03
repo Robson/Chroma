@@ -142,7 +142,7 @@
 			hash = window.location.hash.substring(1);
 		}
 
-		var rand = new Math.seedrandom('zz' + daysBetween);
+		var rand = new Math.seedrandom('1' + daysBetween);
 
 		function weightedRandomChoice(items) {
 		    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
@@ -159,6 +159,7 @@
 			{ weight: 50, arr: coloursPantoneFHI },
 			{ weight: 50, arr: coloursDuluxPopular },
 			{ weight: 50, arr: coloursIngrid },
+			{ weight: 50, arr: coloursJohnstones },
 			{ weight: 25, arr: coloursCrayola },
 			{ weight: 25, arr: coloursDuluxHeritage },
 			{ weight: 25, arr: coloursFarrowBallSignature },
