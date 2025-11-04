@@ -142,7 +142,7 @@
 			hash = window.location.hash.substring(1);
 		}
 
-		var rand = new Math.seedrandom('1' + daysBetween);
+		var rand = new Math.seedrandom('i' + daysBetween);
 
 		function weightedRandomChoice(items) {
 		    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
