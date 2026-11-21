@@ -34,12 +34,12 @@ The colour set is randomly chosen each day from this list:
  * [Johnstone's Paint](https://www.johnstonespaint.com/colour-directory)
  * [LEGO](https://brickset.com/colours/status-All/)
  * [Pantone: Fashion, Home & Interiors](https://www.pantone.com/fashion-home-interiors)
-   * This set has substantially more colours than the other sets, so this set is chosen most often.
    * The data for this was sourced from [Margaret's Pantone Repository](https://github.com/Margaret2/pantone-colors). 
  * [Traditional Colours of Japan](https://en.wikipedia.org/wiki/Traditional_colors_of_Japan)
    * The data for this was sourced from [Meodai's Color-Name-Lists Repository](https://github.com/meodai/color-name-lists).
  * [X11](https://en.wikipedia.org/wiki/X11_color_names)
    * Currently disabled.
+ * [XKCD Colour Survey](https://xkcd.com/color/rgb/)
 
 ## Live Version
 
@@ -93,7 +93,7 @@ This is built using:
    
 ## Validation
    
-<a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Frobson.plus%2Fchroma%2F"><img src="https://www.w3.org/Icons/valid-html401-blue" alt="Valid HTML" /></a>
+<!--<a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Frobson.plus%2Fchroma%2F"><img src="https://www.w3.org/Icons/valid-html401-blue" alt="Valid HTML" /></a>-->
 
 <a href="http://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Frobson.plus%2Fchroma%2Fstyles.css&profile=css3svg&usermedium=all&warning=1"><img src="https://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS" /></a>      
 
