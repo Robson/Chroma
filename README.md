@@ -34,12 +34,12 @@ The colour set is randomly chosen each day from this list:
  * [Johnstone's Paint](https://www.johnstonespaint.com/colour-directory)
  * [LEGO](https://brickset.com/colours/status-All/)
  * [Pantone: Fashion, Home & Interiors](https://www.pantone.com/fashion-home-interiors)
-   * This set has substantially more colours than the other sets, so this set is chosen most often.
    * The data for this was sourced from [Margaret's Pantone Repository](https://github.com/Margaret2/pantone-colors). 
  * [Traditional Colours of Japan](https://en.wikipedia.org/wiki/Traditional_colors_of_Japan)
    * The data for this was sourced from [Meodai's Color-Name-Lists Repository](https://github.com/meodai/color-name-lists).
  * [X11](https://en.wikipedia.org/wiki/X11_color_names)
    * Currently disabled.
+ * [XKCD Colour Survey](https://xkcd.com/color/rgb/)
 
 ## Live Version
 
